@@ -71,7 +71,7 @@ def main():
             NativeSell = []
 
             for exchange in exchanges:
-                if exchange.successfullyLoaded[i_coin]:  # check if the current coin price is above the error value
+                if exchange.successfullyLoaded[i_coin]: 
                     ValidNames.append(exchange.displayName)
                     SellAsks.append(exchange.sellAsks[i_coin])
                     BuyBids.append(exchange.buyBids[i_coin])
