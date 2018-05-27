@@ -1,5 +1,5 @@
 # the-arrrbitrage
-The Arrrbitrage is a basic platform for pillaging data from cryptocurrency exchanges with a focus on the Australian investor. The display url is: https://contrarian.netlify.com/ with the corresponding [git repository](https://github.com/Tehsurfer/hugo-contrarian)
+The Arrrbitrage is a basic platform for pillaging data from cryptocurrency exchanges with a focus on the Australian investor. The display url is: https://contrarian.netlify.com/ with the corresponding [website git repository](https://github.com/Tehsurfer/hugo-contrarian)
 ## Set up ye ship 
 The project was not originally made with the intention of distribution. But if you are interested in running it here are some recommended steps:
 1. Download repository to a folder 
