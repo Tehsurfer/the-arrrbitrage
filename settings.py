@@ -1,8 +1,9 @@
 # settings.py a file to change elements of the project
+import os
 from pathlib import Path
 global PATH, Coins
 
-PATH = Path("C:\\Users\jesse\Dropbox\Arrrrbitrage\\")
+PATH = os.path.abspath('C:/Users/jkho021/Dropbox/')
 
 
 RUNTIME = 60 # Amount of time software runs ins
@@ -14,8 +15,8 @@ CURRENCYEXCHANGEFLATFEE = 25 # Exchange rate losses
 
 Coins = ['BTC','ETH','LTC','BCH','OMG','TRX',] #
 Fiats = ['AUD','USD','NZD','GBP','EUR']
-Native = ['AUD','AUD','AUD','AUD','AUD','AUD','GBP','USD','USDT','USD','USD']
-Native2 = ['AUD','AUD','AUD','AUD','AUD','AUD','GBP','USD','USD','USD','USD']
+Native = ['AUD','AUD','AUD','AUD','AUD','AUD','USD','GBP','USD','USDT','USD','USD']
+Native2 = ['AUD','AUD','AUD','AUD','AUD','AUD','USD','GBP','USD','USD','USD','USD']
 OrderBookNeeded = [0,0,0,1,1,1,1,1,1,1,1,1]
 ExchangeNames = ['coinspot',
              'coinspot nominal',

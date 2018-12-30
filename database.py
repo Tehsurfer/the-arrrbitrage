@@ -3,7 +3,7 @@ import time
 import re
 import numpy as np
 import statistics
-import scipy.stats
+# import scipy.stats
 import settings
 
 
@@ -46,7 +46,8 @@ class database:
         sd = statistics.stdev(arblist)
         mean = statistics.mean(arblist)
 
-        stdamount = scipy.stats.norm.ppf(1-probability)
+        # stdamount = scipy.stats.norm.ppf(1-probability)
+        stdamount = 5
         thresholdValue = mean + sd*stdamount
         print(arblist)
         print(probability)

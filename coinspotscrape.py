@@ -13,9 +13,7 @@ class coinspotscrape:
 
         page = scraper.get("https://www.coinspot.com.au/tradecoins")
         soup = BeautifulSoup(page.content, 'html.parser')
-        listgroup = soup.find_all('div', class_='col-md-12')
-        fulllist = soup.find_all('li', class_="hidden-xs hidden-sm list-group-item tradeitem")
-        pricelist = soup.find_all('div', class_="col-sm-2")
+        pricelist = soup.find_all('tr', class_="tradeitem showrow")
 
         foundcoin = [0] * len(coins)
         buyPrice = [0] * len(coins)
@@ -24,12 +22,9 @@ class coinspotscrape:
             for j, coin in enumerate(coins):
                 if coin in element.get_text() and foundcoin[j] is 0:
                     print('\nFOUND: ' + coin)
-                    print(pricelist[i + 1].get_text())
-                    print(pricelist[i + 2].get_text())
-                    tempe = re.findall(r"[-+]?\d*\.\d+|\d+", pricelist[i + 1].get_text())
-                    buyPrice[j] = float(tempe[0])
-                    tempe = re.findall(r"[-+]?\d*\.\d+|\d+", pricelist[i + 2].get_text())
-                    sellPrice[j] = float(tempe[0])
+                    table_elements = element.find_all('td')
+                    buyPrice[j] = float(table_elements[1].attrs['data-value'])
+                    sellPrice[j] = float(table_elements[2].attrs['data-value'])
                     foundcoin[j] = 1
         self.buyPrice = buyPrice
         self.sellPrice = sellPrice

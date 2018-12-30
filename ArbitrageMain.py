@@ -8,7 +8,7 @@ from PlaceChecker import PlaceChecker
 from xrpscrape import xrpscrape
 import numpy as np
 from arbFunctions import sendemails, updateDropbox, list_to_html_table, save_prices_to_database, save_arb_to_database
-from git_hub import git_hub
+# from git_hub import git_hub
 from Exchange import Exchange, ccxtApproved, scraped
 
 # create local versions of global variables (all accessible in settings.py)
@@ -29,6 +29,23 @@ WFIATFees = settings.FiatWithdrawalFees
 
 
 def main():
+    # create local versions of global variables (all accessible in settings.py)
+    WAITTIME = settings.RUNTIME
+    ALERTTHRESH = settings.ALERTTHRESH
+    FLOW = settings.FLOW
+    CURRENCYEXCHANGEFEE = settings.CURRENCYEXCHANGEFEE
+    CURRENCYEXCHANGEFLATFEE = settings.CURRENCYEXCHANGEFLATFEE
+    Path = str(settings.PATH)
+    Coins = settings.Coins
+    Fiats = settings.Fiats
+    ExchangeNames = settings.ExchangeNames
+    Native = settings.Native
+    TradeFees = settings.TradeFees
+    DepositFees = settings.DepositFees
+    CryptoWithdrawalRate = settings.CryptoWithdrawalRate
+    WFIATFees = settings.FiatWithdrawalFees
+
+
     # Compose list of exchanges of interest (scraped exchanges and then ccxt exchanges)
     exchanges = []
     exchanges.append(scraped('coinspot', 'AUD', ))
@@ -162,8 +179,8 @@ def main():
         updateDropbox(display.stringOutput, display.stringOutput)
 
         # update github
-        g = git_hub()
-        g.update()
+        # g = git_hub()
+        # g.update()
 
         # place an alert to confirm program has run with no errors
         PlaceChecker()

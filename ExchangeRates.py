@@ -11,7 +11,7 @@ class ExchangeRates:
         self.coinscurs = ['BTC','ETH','BCH','LTC','NZD','USD','GBP','EUR']
 
         currencylayerURL = 'https://www.apilayer.net/api/live'
-        payload = {'access_key':'***************************','source':'AUD','currencies':'USD,NZD,GBP,EUR','format':'1'}
+        payload = {'access_key':'5174739b35ced6867078da6994c0af16','source':'AUD','currencies':'USD,NZD,GBP,EUR','format':'1'}
 
 
         response1 = requests.get(currencylayerURL,params=payload)

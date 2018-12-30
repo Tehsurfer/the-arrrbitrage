@@ -67,8 +67,8 @@ class Exchange(object):
         # coinspot requires API key for all requests
         if self.name == 'coinspot':
             coinspot = ccxt.coinspot()
-            coinspot.apiKey = '*****************'
-            coinspot.secret = '*****************'
+            coinspot.apiKey = '88cfb4705e658dea85ed0f580b40a4ce'
+            coinspot.secret = 'KTGVNEK33Q85FBKUQA02AVLEE7B0JHK5G25XNCZZ29F80H1T2M6ETAVCMMB8HT9YXL1ELCRNU2VG3PPVW'
 
         orde = exchanges[self.name].fetch_order_book(coin + '/' + self.nativeCurrency, limit=1000)
         print(orde['bids'])
@@ -114,8 +114,8 @@ class scraped(Exchange):
 
             #Coinspot requires a key to access the public api
             coinspot = ccxt.coinspot()
-            coinspot.apiKey = '*****************'
-            coinspot.secret = '*****************'
+            coinspot.apiKey = '88cfb4705e658dea85ed0f580b40a4ce'
+            coinspot.secret = 'KTGVNEK33Q85FBKUQA02AVLEE7B0JHK5G25XNCZZ29F80H1T2M6ETAVCMMB8HT9YXL1ELCRNU2VG3PPVW'
             response = requests.get("https://www.coinspot.com.au/pubapi/latest")
             coinspotresponse = response.json()
             for i, coin in enumerate(settings.Coins):

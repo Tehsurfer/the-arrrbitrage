@@ -8,7 +8,7 @@ DOWNTIME = ArbitrageMain.WAITTIME+1
 Path = str(settings.PATH)
 for i in range(0,1000000):
 
-    filename = 'check.txt'
+    filename = '//Arrrrbitragecheck.txt'
     f = open(Path + filename, "r")
     line = f.readline()
     print(line)
