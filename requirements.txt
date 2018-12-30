@@ -1,0 +1,7 @@
+ccxt
+bs4
+numpy
+web3
+cfscrape
+PyGithub
+prettytable
