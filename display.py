@@ -1,13 +1,17 @@
 #display.py used for changing all information into a human readable format
 import time
 import arbFunctions
+import settings
 
 class text_display:
 
     def __init__(self):
         self.stringOutput = ''
         self.alertsOutput = ''
-        self.htmlOutput = ''
+        self.htmlOutput = '{{ partial "head" . }} {{ partial "nav" . }} <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+            '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
+        self.htmlOutput2 = '{{ partial "head" . }} {{ partial "nav" . }} <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+            '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
         self.header = '{{ partial "head" . }} {{ partial "nav" . }} <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
 
@@ -71,9 +75,17 @@ class text_display:
 
         self.alertsOutput += '--------------------------------------------------------------------\n'
 
-    def html(self,profitlist, Validnames, sublength, coin):
+    def profit_table(self,profitlist, Validnames, sublength, coin):
+        profitlist2 = [0]*len(profitlist)
+        for i, profit in enumerate(profitlist):
+            profitlist2[i] = round(profit/settings.FLOW*100,2)
         self.htmlOutput += '<body> <b> ' + str(coin) + ' </b> </body> '
-        self.htmlOutput += arbFunctions.list_to_html_table(profitlist,Validnames,sublength,color=True)
+        self.htmlOutput += arbFunctions.list_to_html_table(profitlist2,Validnames,sublength,color=True)
 
-
+    def margin_table(self, marginlist, Validnames, sublength, coin):
+        marginlist2 = [0] * len(marginlist)
+        for i, margin in enumerate(marginlist):
+            marginlist2[i] = round(margin*100, 1)
+        self.htmlOutput2 += '<body> <b> ' + str(coin) + ' </b> </body> '
+        self.htmlOutput2 += arbFunctions.list_to_html_table(marginlist2, Validnames, sublength, color=True)
 

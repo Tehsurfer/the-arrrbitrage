@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 global PATH, Coins
 
-PATH = os.path.abspath('C:/Users/jkho021/Dropbox/')
+PATH = os.path.abspath("D:\\Users\crypto\Dropbox\Arrrrbitrage\\")
 
 
 RUNTIME = 60 # Amount of time software runs ins

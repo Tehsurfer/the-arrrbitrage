@@ -11,8 +11,8 @@ class git_hub:
         pass
 
     def update(self):
-            user = "Tehsurfer"
-            password = "***************"
+            user = "lonefintech"
+            password = "Asafew3ytogo"
             g = Github(user,password)
             repo = g.get_user().get_repo('hugo-contrarian')
             file_list = [

@@ -8,7 +8,7 @@ DOWNTIME = ArbitrageMain.WAITTIME+1
 Path = str(settings.PATH)
 for i in range(0,1000000):
 
-    filename = '//Arrrrbitragecheck.txt'
+    filename = 'check.txt'
     f = open(Path + filename, "r")
     line = f.readline()
     print(line)
@@ -18,8 +18,8 @@ for i in range(0,1000000):
         print('REBOOTING THE ARBITRAGE')
         try:
             ArbitrageMain.main()
-        except:
-            print('ARBITRAGE hit an error')
+        except Exception as e:
+            print(f'ARBITRAGE hit an error: {e}' )
             pass
 
     else:

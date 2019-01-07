@@ -7,25 +7,12 @@ from ExchangeRates import ExchangeRates
 from PlaceChecker import PlaceChecker
 from xrpscrape import xrpscrape
 import numpy as np
-from arbFunctions import sendemails, updateDropbox, list_to_html_table, save_prices_to_database, save_arb_to_database
-# from git_hub import git_hub
+from arbFunctions import sendemails, updateDropbox, to_AUD
+from git_hub import git_hub
+# from git_hub2 import git_hub2
 from Exchange import Exchange, ccxtApproved, scraped
 
-# create local versions of global variables (all accessible in settings.py)
-WAITTIME = settings.RUNTIME
-ALERTTHRESH = settings.ALERTTHRESH
-FLOW = settings.FLOW
-CURRENCYEXCHANGEFEE = settings.CURRENCYEXCHANGEFEE
-CURRENCYEXCHANGEFLATFEE = settings.CURRENCYEXCHANGEFLATFEE
-Path = str(settings.PATH)
-Coins = settings.Coins
-Fiats = settings.Fiats
-ExchangeNames = settings.ExchangeNames
-Native = settings.Native
-TradeFees = settings.TradeFees
-DepositFees = settings.DepositFees
-CryptoWithdrawalRate = settings.CryptoWithdrawalRate
-WFIATFees = settings.FiatWithdrawalFees
+
 
 
 def main():
@@ -34,8 +21,8 @@ def main():
     ALERTTHRESH = settings.ALERTTHRESH
     FLOW = settings.FLOW
     CURRENCYEXCHANGEFEE = settings.CURRENCYEXCHANGEFEE
-    CURRENCYEXCHANGEFLATFEE = settings.CURRENCYEXCHANGEFLATFEE
     Path = str(settings.PATH)
+    CURRENCYEXCHANGEFLATFEE = settings.CURRENCYEXCHANGEFLATFEE
     Coins = settings.Coins
     Fiats = settings.Fiats
     ExchangeNames = settings.ExchangeNames
@@ -51,6 +38,8 @@ def main():
     exchanges.append(scraped('coinspot', 'AUD', ))
     exchanges.append(scraped('coinspot nominal', 'AUD', ))
     exchanges.append(scraped('coinjar', 'AUD', ))
+    print(len(ExchangeNames))
+    print(len(Native))
     for i in range(3, len(ExchangeNames)):
         exchanges.append(ccxtApproved(ExchangeNames[i], Native[i]))
     for i, exchange in enumerate(exchanges):
@@ -88,7 +77,7 @@ def main():
             NativeSell = []
 
             for exchange in exchanges:
-                if exchange.successfullyLoaded[i_coin]: 
+                if exchange.successfullyLoaded[i_coin]:
                     ValidNames.append(exchange.displayName)
                     SellAsks.append(exchange.sellAsks[i_coin])
                     BuyBids.append(exchange.buyBids[i_coin])
@@ -102,14 +91,16 @@ def main():
             # check for depth of the markets (10,000 AUD)
             SellAsks = []
             BuyBids = []
+            SellAsksNoDepth = []
+            BuyBidsNoDepth = []
             depthpricebuys = []
             depthpricesells = []
             for i, exchange in enumerate(exchanges):
                 if exchange.displayName not in ValidNames:
                     continue
                 if settings.OrderBookNeeded[i] == 1:
-                    depthpricebuy = exchange.order_book_buy(coin, coinsBought)
-                    depthpricesell = exchange.order_book_sell(coin, coinsBought)
+                    depthpricebuy = exchange.order_book_sell(coin, coinsBought)
+                    depthpricesell = exchange.order_book_buy(coin, coinsBought)
                     depthpricesells.append(depthpricesell)
                     depthpricebuys.append(depthpricebuy)
                     # fileStr += ValidNames[i] + '  \t|\t' + str(round(depthpricebuy, 0)) + '  \t|\t' + str(
@@ -117,24 +108,20 @@ def main():
                 else:
                     depthpricebuys.append(exchange.buyBids[i_coin])
                     depthpricesells.append(exchange.sellAsks[i_coin])
-
-            for i in range(len(depthpricebuys)):
                 # Convert Prices to a single currency (AUD)
-                if settings.Native[i] == 'USD':
-                    BuyBids.append(depthpricebuys[i] / rts.USD)
-                    SellAsks.append(depthpricesells[i] / rts.USD)
-                elif settings.Native[i] == 'GBP':
-                    BuyBids.append(depthpricebuys[i] / rts.GBP)
-                    SellAsks.append(depthpricesells[i] / rts.GBP)
-                else:
-                    BuyBids.append(depthpricebuys[i])
-                    SellAsks.append(depthpricesells[i])
+
+                BuyBids.append(to_AUD(exchange.nativeCurrency,depthpricebuys[-1], rts))
+                SellAsks.append(to_AUD(exchange.nativeCurrency,depthpricesells[-1], rts))
+                SellAsksNoDepth.append(to_AUD(exchange.nativeCurrency,exchange.sellAsks[i_coin], rts))
+                BuyBidsNoDepth.append(to_AUD(exchange.nativeCurrency, exchange.buyBids[i_coin], rts))
 
             # Add prices in AUD to the display
             display.add_market_prices_table(ValidNames, BuyBids, SellAsks, coin)
 
             # Search all the Exchanges for margins
+            marginsNoDepth = []
             margins = np.zeros(shape=(len(ValidNames), len(ValidNames)))
+
             profits = np.zeros(shape=(len(ValidNames), len(ValidNames)))
             for i in range(0, len(ValidNames)):
                 for j in range(0, len(ValidNames)):
@@ -148,9 +135,13 @@ def main():
                         j] - CURRENCYEXCHANGEFEE * FLOW - CURRENCYEXCHANGEFLATFEE
                     profits[i, j] = profit
 
+                    marginsNoDepth.append((BuyBids[j] - SellAsks[i]) / SellAsks[i])
+
             # Write profits and margins into a displayable format
             display.margin_list(ValidNames, BuyBids, SellAsks, margins, coin)
             display.profit_list(ValidNames, BuyBids, SellAsks, profits, coin)
+            display.profit_table(profits.flatten(),ValidNames,len(ValidNames),coin)
+            display.margin_table(marginsNoDepth,ValidNames,len(ValidNames),coin)
 
             # Check for margins worthy of an email alert
             display.alerts(ValidNames, BuyBids, SellAsks, margins, coin, ALERTTHRESH)
@@ -164,23 +155,32 @@ def main():
         data_base.save_arb(max(maxArb))
 
         # Check XRP for arbitrage opportunities
-        xrp = xrpscrape()
-        display.stringOutput += xrp.totext()
-        if xrp.arbAvailable():
-            display.alertsOutput += xrp.totext()
-            display.stringOutput += xrp.totext()
-            display.htmlOutput += xrp.totext()
+        # xrp = xrpscrape()
+        # display.stringOutput += xrp.totext()
+        # if xrp.arbAvailable():
+        #     display.alertsOutput += xrp.totext()
+        #     display.stringOutput += xrp.totext()
+        #     display.htmlOutput += xrp.totext()
 
         # Add exchange rates for visualising
         display.stringOutput += rts.totext()
 
-        sendemails(display.stringOutput, display.alertsOutput, runNumber, xrp, max(maxArb))
+        #send email alerts if valuable arbs pop up
+        # sendemails(display.stringOutput, display.alertsOutput, runNumber, xrp, max(maxArb))
 
-        updateDropbox(display.stringOutput, display.stringOutput)
+        #update the dropbox display and
+        updateDropbox(display.stringOutput, display.htmlOutput, display.htmlOutput2)
+        time.sleep(2)
+
+        # update javascript display every 3 minutes.
+        # if runNumber % 3 == 0:
+        #     data_base.javascript_arb_array()
+        #     g2 = git_hub2()
+        #     g2.update()
 
         # update github
-        # g = git_hub()
-        # g.update()
+        g = git_hub()
+        g.update()
 
         # place an alert to confirm program has run with no errors
         PlaceChecker()
@@ -197,6 +197,7 @@ def main():
             time.sleep(WAITTIME - run_time - 1)
         else:
             print('Starting Arrrbitrage again...')
+
 
 
 if __name__ == "__main__":

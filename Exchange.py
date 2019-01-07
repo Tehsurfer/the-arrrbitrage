@@ -40,22 +40,27 @@ class Exchange(object):
         # coinspot requires API key for all requests
         if self.name == 'coinspot':
             coinspot = ccxt.coinspot()
-            coinspot.apiKey = '*****************'
-            coinspot.secret = '*****************'
+            coinspot.apiKey = '88cfb4705e658dea85ed0f580b40a4ce'
+            coinspot.secret = '*KTGVNEK33Q85FBKUQA02AVLEE7B0JHK5G25XNCZZ29F80H1T2M6ETAVCMMB8HT9YXL1ELCRNU2VG3PPVW'
 
 
         orde = exchanges[self.name].fetch_order_book(coin+ '/' + self.nativeCurrency, limit=1000)
         totalfilled = 0
         totalpaid = 0
         i = 0
+        print('exchange is' + self.name)
+        if self.name == 'acx':
+            tt = 0
         while totalfilled <= fillamount:
-            price = orde['asks'][i][0]
-            amount = orde['asks'][i][1]
-            totalfilled += amount
-            totalpaid += price * amount
-            print('total paid: ' + str(totalpaid))
-            print('total filled: ' + str(totalfilled))
-            i += 1
+            if i < len(orde['asks']):
+                price = orde['asks'][i][0]
+                amount = orde['asks'][i][1]
+                totalfilled += amount
+                totalpaid += price * amount
+                i += 1
+            else:
+                totalpaid = totalpaid*2
+                break
         if totalfilled > fillamount:
             totalpaid -= orde['asks'][i - 1][0] * (totalfilled - fillamount)
         print(totalpaid)
@@ -76,12 +81,17 @@ class Exchange(object):
         totalfilled = 0
         totalpaid = 0
         i = 0
+
         while totalfilled <= fillamount:
-            price = orde['bids'][i][0]
-            amount = orde['bids'][i][1]
-            totalfilled += amount
-            totalpaid += price * amount
-            i += 1
+            if i < len(orde['bids']):
+                price = orde['bids'][i][0]
+                amount = orde['bids'][i][1]
+                totalfilled += amount
+                totalpaid += price * amount
+                i += 1
+            else:
+                totalpaid = totalpaid * 2
+                break
         if totalfilled > fillamount:
             totalpaid -= orde['bids'][i - 1][0] * (totalfilled - fillamount)
         print(totalpaid)

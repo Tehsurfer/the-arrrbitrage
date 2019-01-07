@@ -1,4 +1,4 @@
-# arbFunctions.py is various input functions that did not fit in the main thread but did not seem worthy of their own class
+#arbFunctions.py is various input functions that did not fit in the main thread but did not seem worthy of their own class
 import smtplib
 import time
 from database import database
@@ -6,17 +6,16 @@ import settings
 
 Path = str(settings.PATH)
 
-
-# Sends emails to those who want alerts
+#Sends emails to those who want alerts
 def sendemails(fileStr, fileStrAlert, kt, xrp, maxArb):
     if fileStr != '' and kt % 60 == 1:
         print(fileStr)
         fileStr = '\n' + fileStr
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("*************", "*************")
-        server.sendmail("*************", "*************", fileStr)
-        server.sendmail("*************", "*************", fileStr)
+        server.login("jessekhora@gmail.com", "fackE3$news45")
+        server.sendmail("jessekhora@gmail.com", "nametaken47@gmail.com", fileStr)
+        server.sendmail("jessekhora@gmail.com", "klamboghini86@gmail.com", fileStr)
         server.quit()
 
     dat = database()
@@ -26,16 +25,18 @@ def sendemails(fileStr, fileStrAlert, kt, xrp, maxArb):
         fileStrAlert = '\n Arrrbitrage alert! \n' + fileStrAlert + '\n Check full details at... https://www.dropbox.com/s/uj6274l0m1jmxds/index.txt?dl=0'
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("*************", "*************")
-        server.sendmail("*************", "*************", fileStrAlert)
-        server.sendmail("j*************", "*************", fileStrAlert)
-        # server.sendmail("*************", "*************", fileStrAlert)
-        server.sendmail("*************", "*************", fileStrAlert)
+        server.login("jessekhora@gmail.com", "fackE3$news45")
+        server.sendmail("jessekhora@gmail.com", "jessekhorasanee@gmail.com", fileStrAlert)
+        server.sendmail("jessekhora@gmail.com", "dimitri@roumpos.com", fileStrAlert)
+        # server.sendmail("jessekhora@gmail.com", "b.sceats@gmail.com", fileStrAlert)
+        server.sendmail("jessekhora@gmail.com", "owen.m.kr@gmail.com", fileStrAlert)
         server.quit()
 
 
-# updates the dropbox files for web display
-def updateDropbox(fileStr, html=''):
+#updates the dropbox files for web display
+def updateDropbox(fileStr, html='',html2=''):
+
+
     # Change path to reflect file location
     f = open('ArbitrageResults.txt', 'w')
 
@@ -44,19 +45,23 @@ def updateDropbox(fileStr, html=''):
     # Update files
 
     contents = open('ArbitrageResults.txt', "r")
-    g = open(Path + "index.html", "w")
+    g = open(Path + "\index.html", "w")
     html_text = '{{ partial "head" . }} {{ partial "nav" . }} <pre>' + fileStr + '</pre>'
 
     g.write(html_text)
 
     contents = open('ArbitrageResults.txt', "r")
-    with open(Path + "index.txt", "w") as yo:
+    with open(Path + "\index.txt", "w") as yo:
         for lines in contents.readlines():
             yo.write(lines)
 
-    f = open(Path + 'margin_table.html', 'w')
+    f = open(Path + '\margin_table_with_depth.html', 'w')
     f.write(html)
     f.close()
+
+    h = open(Path + '\margin_table.html', 'w')
+    h.write(html2)
+    h.close()
 
 
 def save_prices_to_database(marketNames, buyPrices, sellPrices, coin):
@@ -75,7 +80,6 @@ def save_arb_to_database(margin):
     f.write(text + '\n')
     f.close()
 
-
 # collects the moving average from the database
 def get_moving_average(timePeriod):
     f = open(Path + '\database\\arbdata', 'r')
@@ -90,7 +94,6 @@ def create_database(marketNames, coin):
         text += marketNames[i] + '\t' + marketNames[i] + '\t'
     f.write(text + '\n')
     f.close()
-
 
 # The next five functions are used to organise a table of data into a format for display in html
 def row_major(alist, sublen):
@@ -181,3 +184,13 @@ def list_to_html_table(alist, header, sublength, color=True, header2=[], column_
         return ''.join(html_table(lol, header))
     else:
         return ''.join(html_table2(lol, header, header2))
+
+
+def to_AUD(native, price, rts):
+    if 'USD' in native:
+        return (price / rts.USD)
+    elif 'GBP' in native:
+        return (price / rts.GBP)
+    else:
+        return price
+
