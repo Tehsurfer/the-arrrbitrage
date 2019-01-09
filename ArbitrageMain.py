@@ -148,6 +148,7 @@ def main():
 
             # save prices to the database
             data_base.save_prices(ValidNames, BuyBids, SellAsks, coin)
+            data_base.save_table(ValidNames, profits, coin)
 
             maxArb[i_coin] = margins.max()
             print(display.stringOutput)

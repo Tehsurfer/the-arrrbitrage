@@ -5,6 +5,7 @@ import numpy as np
 import statistics
 # import scipy.stats
 import settings
+import json
 
 
 Path = str(settings.PATH)
@@ -12,9 +13,15 @@ Path = str(settings.PATH)
 class database:
 
     def __init__(self):
-        pass
+        self.table_dict = self.get_template()
 
 
+    def save_table(self, marketNames, profits, coin):
+
+        #Adjust our template table
+        for i, market1 in enumerate(marketNames):
+            for j,  market2 in enumerate(marketNames):
+                self.table_dict['margin'][coin][market1][market2] = round(profits[i,j]/settings.FLOW*100,2)
 
     def save_prices(self, marketNames, buyPrices, sellPrices, coin):
         f = open(Path + '\database\prices' + coin, 'a+')
@@ -31,6 +38,10 @@ class database:
         text = str(time.time()) + '\t' + str(margin)
         f.write(text + '\n')
         f.close()
+
+        with open(Path + '\database\profit_recordings.json', 'a+') as f2:
+            f2.write(json.dumps(self.table_dict, indent=4, sort_keys=False))
+
 
     #Calculates the probability of an arb occurring given a moving average
     def get_moving_average_threshold(self, timeP=60*60*24,probability=1/(60*24)):
@@ -58,10 +69,14 @@ class database:
         return thresholdValue
 
     # WARNING, this will overate any existing database file with the same name
-    def create(self, name, marketNames, coin):
-     f = open(Path + '\database\\' + name + coin, 'w+')
-     text = time.strftime('%X %x %Z') + '\t'
-     for i, market in enumerate(marketNames):
-         text += marketNames[i] + '\t' + marketNames[i] + '\t'
-     f.write(text + '\n')
-     f.close()
+    def create_database(self, name, marketNames, coin):
+        f = open(Path + '\database\\' + name + coin, 'w+')
+        text = time.strftime('%X %x %Z') + '\t'
+        for i, market in enumerate(marketNames):
+            text += marketNames[i] + '\t' + marketNames[i] + '\t'
+        f.write(text + '\n')
+        f.close()
+
+    def get_template(self):
+        with open('template.json', 'r') as f:
+            return json.load(f)
