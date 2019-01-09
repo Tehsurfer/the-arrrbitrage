@@ -120,6 +120,8 @@ def html_table(lol, header):
     worstcolor = [0, 26, 77]
     negativecolor = [147, 31, 31]
 
+    table_element_count = 0
+
     text = '<table border="1">'
     text += '  <tr><th>+</th>'
     for head in header:
@@ -136,8 +138,10 @@ def html_table(lol, header):
                     color[i] = bestcolor[i] * (percentage + .8) / 4 + worstcolor[i] * (1 - (percentage + .8) / 4)
                     color[i] = int(round(color[i], 0))
             print(color)
-            text += '    <td style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
+            text += '    <td class ="table_element" element_number="'+str(table_element_count)+ \
+                    'style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
                     ', ' + str(color[2]) + ');">' + str(percentage)
+            table_element_count += 1
         text += '  <th>' + header[k] + '</th></tr>'
     text += '  <tr><th>+</th>'
     for head in header:
@@ -153,6 +157,8 @@ def html_table2(lol, header, header2):
     worstcolor = [0, 26, 77]
     negativecolor = [147, 31, 31]
 
+    table_element_count = 0
+
     text = '<table border="1">'
     text += '  <tr><th>+</th>'
     for head in header:
@@ -163,8 +169,10 @@ def html_table2(lol, header, header2):
         for j, percentage in enumerate(sublist):
             color = bestcolor
             print(color)
-            text += '    <td style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
+            text += '    <td class ="table_element" element_number="'+str(table_element_count)+ \
+                    ' style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
                     ', ' + str(color[2]) + ');">' + str(percentage)
+            table_element_count += 1
         text += '  <th>' + header2[k] + '</th></tr>'
     text += '  <tr><th>+</th>'
     for head in header:
