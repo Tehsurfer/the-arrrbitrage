@@ -4,7 +4,7 @@ import time
 from database import database
 import settings
 
-Path = str(settings.PATH)
+Path = settings.PATH
 
 #Sends emails to those who want alerts
 def sendemails(fileStr, fileStrAlert, kt, xrp, maxArb):
@@ -13,9 +13,9 @@ def sendemails(fileStr, fileStrAlert, kt, xrp, maxArb):
         fileStr = '\n' + fileStr
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("jessekhora@gmail.com", "fackE3$news45")
+        server.login("jessekhora@gmail.com", "******************")
         server.sendmail("jessekhora@gmail.com", "nametaken47@gmail.com", fileStr)
-        server.sendmail("jessekhora@gmail.com", "klamboghini86@gmail.com", fileStr)
+        server.sendmail("jessekhora@gmail.com", "******************", fileStr)
         server.quit()
 
     dat = database()
@@ -25,11 +25,11 @@ def sendemails(fileStr, fileStrAlert, kt, xrp, maxArb):
         fileStrAlert = '\n Arrrbitrage alert! \n' + fileStrAlert + '\n Check full details at... https://www.dropbox.com/s/uj6274l0m1jmxds/index.txt?dl=0'
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("jessekhora@gmail.com", "fackE3$news45")
-        server.sendmail("jessekhora@gmail.com", "jessekhorasanee@gmail.com", fileStrAlert)
-        server.sendmail("jessekhora@gmail.com", "dimitri@roumpos.com", fileStrAlert)
-        # server.sendmail("jessekhora@gmail.com", "b.sceats@gmail.com", fileStrAlert)
-        server.sendmail("jessekhora@gmail.com", "owen.m.kr@gmail.com", fileStrAlert)
+        server.login("jessekhora@gmail.com", "******************")
+        server.sendmail("jessekhora@gmail.com", "******************", fileStrAlert)
+        server.sendmail("jessekhora@gmail.com", "******************", fileStrAlert)
+        # server.sendmail("jessekhora@gmail.com", "******************", fileStrAlert)
+        server.sendmail("jessekhora@gmail.com", "******************", fileStrAlert)
         server.quit()
 
 
@@ -45,27 +45,27 @@ def updateDropbox(fileStr, html='',html2=''):
     # Update files
 
     contents = open('ArbitrageResults.txt', "r")
-    g = open(Path + "\index.html", "w")
+    g = open(Path / "index.html", "w")
     html_text = '{{ partial "head" . }} {{ partial "nav" . }} <pre>' + fileStr + '</pre>'
 
     g.write(html_text)
 
     contents = open('ArbitrageResults.txt', "r")
-    with open(Path + "\index.txt", "w") as yo:
+    with open(Path / "index.txt", "w") as yo:
         for lines in contents.readlines():
             yo.write(lines)
 
-    f = open(Path + '\margin_table_with_depth.html', 'w')
+    f = open(Path / 'margin_table_with_depth.html', 'w')
     f.write(html)
     f.close()
 
-    h = open(Path + '\margin_table.html', 'w')
+    h = open(Path / 'margin_table.html', 'w')
     h.write(html2)
     h.close()
 
 
 def save_prices_to_database(marketNames, buyPrices, sellPrices, coin):
-    f = open(Path + '\database\prices' + coin, 'a+')
+    f = open(Path / 'database\prices' / coin, 'a+')
     databasetext = time.strftime('%X %x %Z') + '\t'
     for i, market in enumerate(marketNames):
         databasetext += str(buyPrices[i]) + '\t' + str(sellPrices[i]) + '\t'
@@ -75,14 +75,14 @@ def save_prices_to_database(marketNames, buyPrices, sellPrices, coin):
 
 
 def save_arb_to_database(margin):
-    f = open(Path + '\database\\arbdata', 'a+')
+    f = open(Path / 'database\\arbdata', 'a+')
     text = str(time.time()) + '\t' + str(margin)
     f.write(text + '\n')
     f.close()
 
 # collects the moving average from the database
 def get_moving_average(timePeriod):
-    f = open(Path + '\database\\arbdata', 'r')
+    f = open(Path / 'database\\arbdata', 'r')
     for line in f.readlines():
         g = 2
 

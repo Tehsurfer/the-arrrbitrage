@@ -1,9 +1,9 @@
 # settings.py a file to change elements of the project
-import os
+
 from pathlib import Path
 global PATH, Coins
 
-PATH = os.path.abspath("D:\\Users\crypto\Dropbox\Arrrrbitrage\\")
+PATH = Path("D:\\Users\crypto\Dropbox\Arrrrbitrage\\")
 
 
 RUNTIME = 60 # Amount of time software runs ins

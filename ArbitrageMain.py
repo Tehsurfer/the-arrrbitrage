@@ -21,7 +21,6 @@ def main():
     ALERTTHRESH = settings.ALERTTHRESH
     FLOW = settings.FLOW
     CURRENCYEXCHANGEFEE = settings.CURRENCYEXCHANGEFEE
-    Path = str(settings.PATH)
     CURRENCYEXCHANGEFLATFEE = settings.CURRENCYEXCHANGEFLATFEE
     Coins = settings.Coins
     Fiats = settings.Fiats

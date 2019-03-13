@@ -5,11 +5,11 @@ import ArbitrageMain
 #Time in seconds
 DOWNTIME = ArbitrageMain.WAITTIME+1
 
-Path = str(settings.PATH)
+Path = settings.PATH
 for i in range(0,1000000):
 
     filename = 'check.txt'
-    f = open(Path + filename, "r")
+    f = open(Path / filename, "r")
     line = f.readline()
     print(line)
     f.close()

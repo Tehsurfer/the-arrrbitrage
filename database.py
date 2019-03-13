@@ -8,7 +8,7 @@ import settings
 import json
 
 
-Path = str(settings.PATH)
+Path = settings.PATH
 
 class database:
 
@@ -24,7 +24,7 @@ class database:
                 self.table_dict['margin'][coin][market1][market2] = round(profits[i,j]/settings.FLOW*100,2)
 
     def save_prices(self, marketNames, buyPrices, sellPrices, coin):
-        f = open(Path + '\database\prices' + coin, 'a+')
+        f = open(Path / 'database\prices' / coin, 'a+')
         databasetext = time.strftime('%X %x %Z') + '\t'
         for i, market in enumerate(marketNames):
          databasetext += str(buyPrices[i]) + '\t' + str(sellPrices[i]) + '\t'
@@ -34,18 +34,18 @@ class database:
 
     # saves the maximum arb to the database
     def save_arb(self, margin):
-        f = open(Path + '\database\\arbdata', 'a+')
+        f = open(Path / 'database\\arbdata', 'a+')
         text = str(time.time()) + '\t' + str(margin)
         f.write(text + '\n')
         f.close()
 
-        with open(Path + '\database\profit_recordings.json', 'a+') as f2:
+        with open(Path / 'database\profit_recordings.json', 'a+') as f2:
             f2.write(json.dumps(self.table_dict, indent=4, sort_keys=False))
 
 
     #Calculates the probability of an arb occurring given a moving average
     def get_moving_average_threshold(self, timeP=60*60*24,probability=1/(60*24)):
-        f = open(Path + '\database\\arbdata', 'r')
+        f = open(Path / 'database\\arbdata', 'r')
         arblist = []
         for line in f.readlines():
             readNumbers = re.findall(r"[-+]?\d*\.\d+|\d+", line)
@@ -70,7 +70,7 @@ class database:
 
     # WARNING, this will overate any existing database file with the same name
     def create_database(self, name, marketNames, coin):
-        f = open(Path + '\database\\' + name + coin, 'w+')
+        f = open(Path / str('database\\' + name + coin), 'w+')
         text = time.strftime('%X %x %Z') + '\t'
         for i, market in enumerate(marketNames):
             text += marketNames[i] + '\t' + marketNames[i] + '\t'
