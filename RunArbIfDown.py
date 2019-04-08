@@ -3,7 +3,7 @@ import settings
 import ArbitrageMain
 
 #Time in seconds
-DOWNTIME = ArbitrageMain.WAITTIME+1
+DOWNTIME = settings.RUNTIME+1
 
 Path = settings.PATH
 for i in range(0,1000000):

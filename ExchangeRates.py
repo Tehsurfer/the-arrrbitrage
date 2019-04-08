@@ -2,16 +2,17 @@ import ccxt
 import time
 import json
 import requests
+import config
 
 #Fetching rates from apifixer.io (free service)
 
 class ExchangeRates:
     def __init__(self):
-        coins = ['BTC','ETH','BCH','LTC']
+        self.coins = ['BTC','ETH','BCH','LTC']
         self.coinscurs = ['BTC','ETH','BCH','LTC','NZD','USD','GBP','EUR']
-
+    def update(self):
         currencylayerURL = 'https://www.apilayer.net/api/live'
-        payload = {'access_key':'5174739b35ced6867078da6994c0af16','source':'AUD','currencies':'USD,NZD,GBP,EUR','format':'1'}
+        payload = {'access_key': config.currencylayerkey,'source':'AUD','currencies':'USD,NZD,GBP,EUR','format':'1'}
 
 
         response1 = requests.get(currencylayerURL,params=payload)
@@ -23,7 +24,7 @@ class ExchangeRates:
 
         rates = []
         for i in range(0,20):
-            for coin in coins:
+            for coin in self.coins:
                 if datarates2[i]['symbol'] == coin:
                     rates.append(datarates2[i]['price_aud'])
         print('Rates are :')

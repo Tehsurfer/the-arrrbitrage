@@ -2,23 +2,24 @@
 import base64
 from github import Github
 from github import InputGitTreeElement
+import config
 import settings
 
-Path = str(settings.PATH)
+Path = settings.PATH
 
 class git_hub:
     def __init__(self):
         pass
 
     def update(self):
-            user = "lonefintech"
-            password = "Asafew3ytogo"
+            user = config.gituser
+            password = config.gitpassword 
             g = Github(user,password)
             repo = g.get_user().get_repo('hugo-contrarian')
             file_list = [
-                Path +'\index.html',
-                Path + '\margin_table.html',
-                Path + '\margin_table_with_depth.html'
+                Path / 'index.html',
+                Path / 'margin_table.html',
+                Path / 'margin_table_with_depth.html'
             ]
 
             file_names = [
@@ -35,8 +36,6 @@ class git_hub:
             for i, entry in enumerate(file_list):
                 with open(entry) as input_file:
                     data = input_file.read()
-                if entry.endswith('.png'):
-                    data = base64.b64encode(data)
                 element = InputGitTreeElement(file_names[i], '100644', 'blob', data)
                 element_list.append(element)
             tree = repo.create_git_tree(element_list, base_tree)

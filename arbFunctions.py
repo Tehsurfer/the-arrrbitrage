@@ -139,7 +139,7 @@ def html_table(lol, header):
                     color[i] = int(round(color[i], 0))
             print(color)
             text += '    <td class ="table_element" element_number="'+str(table_element_count)+ \
-                    'style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
+                    '" style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
                     ', ' + str(color[2]) + ');">' + str(percentage)
             table_element_count += 1
         text += '  <th>' + header[k] + '</th></tr>'
@@ -170,7 +170,7 @@ def html_table2(lol, header, header2):
             color = bestcolor
             print(color)
             text += '    <td class ="table_element" element_number="'+str(table_element_count)+ \
-                    ' style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
+                    '" style ="background-color:rgb(' + str(color[0]) + ' ,' + str(color[1]) + \
                     ', ' + str(color[2]) + ');">' + str(percentage)
             table_element_count += 1
         text += '  <th>' + header2[k] + '</th></tr>'

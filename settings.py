@@ -3,7 +3,7 @@
 from pathlib import Path
 global PATH, Coins
 
-PATH = Path("D:\\Users\crypto\Dropbox\Arrrrbitrage\\")
+PATH = Path("/home/jessekhorasanee/workspace/the-arrrbitrage/data/")
 
 
 RUNTIME = 60 # Amount of time software runs ins

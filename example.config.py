@@ -1,0 +1,3 @@
+gituser = '************'
+gitpassword = '************'
+currencylayerkey = '*************'

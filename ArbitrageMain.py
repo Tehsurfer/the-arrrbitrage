@@ -47,6 +47,7 @@ def main():
     # initialise database
     data_base = database.database()
 
+    rts = ExchangeRates()
     for runNumber in range(0, 1000000):
 
         program_start = time.time()
@@ -55,8 +56,8 @@ def main():
         display = text_display()
 
         print('Loading Exchange rates...')
-        rts = ExchangeRates()
-
+        if runNumber % 60 == 0:
+            rts.update()
         # Turn withdrawal rates into flat fees based off of current price
         CryptoWithdrawalFees = []
         for rate in CryptoWithdrawalRate: CryptoWithdrawalFees.append(rate * rts.exchangeRateToAUD('BTC'))
@@ -146,13 +147,13 @@ def main():
             display.alerts(ValidNames, BuyBids, SellAsks, margins, coin, ALERTTHRESH)
 
             # save prices to the database
-            data_base.save_prices(ValidNames, BuyBids, SellAsks, coin)
-            data_base.save_table(ValidNames, profits, coin)
+            #data_base.save_prices(ValidNames, BuyBids, SellAsks, coin)
+            #data_base.save_table(ValidNames, profits, coin)
 
             maxArb[i_coin] = margins.max()
             print(display.stringOutput)
 
-        data_base.save_arb(max(maxArb))
+        #data_base.save_arb(max(maxArb))
 
         # Check XRP for arbitrage opportunities
         # xrp = xrpscrape()
