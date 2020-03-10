@@ -3,7 +3,8 @@
 from pathlib import Path
 global PATH, Coins
 
-PATH = Path("/home/jessekhorasanee/workspace/the-arrrbitrage/data/")
+PATH = os.path.abspath('C:/Users/jkho021/Dropbox/')
+FRONT_END = os.path.abspath('C:/Users/jkho021/Worksapce/dimi/hugo-contrarian')
 
 
 RUNTIME = 60 # Amount of time software runs ins
