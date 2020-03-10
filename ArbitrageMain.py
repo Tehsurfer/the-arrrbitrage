@@ -78,9 +78,12 @@ def main():
 
             for exchange in exchanges:
                 if exchange.successfullyLoaded[i_coin]:
-                    ValidNames.append(exchange.displayName)
-                    SellAsks.append(exchange.sellAsks[i_coin])
-                    BuyBids.append(exchange.buyBids[i_coin])
+                    if exchange.sellAsks[i_coin] is not None:
+                        ValidNames.append(exchange.displayName)
+                        SellAsks.append(exchange.sellAsks[i_coin])
+                        BuyBids.append(exchange.buyBids[i_coin])
+
+            print(f'sell asks: {SellAsks}')
 
             # Market Summary
             display.add_native_prices_table(ValidNames, SellAsks, BuyBids, coin)
