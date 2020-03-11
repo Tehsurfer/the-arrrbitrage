@@ -3,6 +3,7 @@ import time
 import json
 import requests
 import config
+import coinmarket
 
 #Fetching rates from apifixer.io (free service)
 
@@ -16,17 +17,12 @@ class ExchangeRates:
 
 
         response1 = requests.get(currencylayerURL,params=payload)
-        response2 = requests.get("https://api.coinmarketcap.com/v1/ticker/?convert=AUD&limit=20")
+
         print(response1)
         datarates1 = response1.json()
-        datarates2 = response2.json()
-        print(datarates2)
 
-        rates = []
-        for i in range(0,20):
-            for coin in self.coins:
-                if datarates2[i]['symbol'] == coin:
-                    rates.append(datarates2[i]['price_aud'])
+        rates = coinmarket.get_market()
+
         print('Rates are :')
         print('AUD->USD: ' + str(datarates1['quotes']['AUDUSD']))
         print('AUD->NZD: ' + str(datarates1['quotes']['AUDNZD']))
