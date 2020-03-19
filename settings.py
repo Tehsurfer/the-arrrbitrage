@@ -6,7 +6,7 @@ global PATH, Coins
 PATH = Path("/home/jessekhorasanee/workspace/the-arrrbitrage/data/")
 
 
-RUNTIME = 60*5 # Amount of time software runs ins
+RUNTIME = 60 # Amount of time software runs ins
 ALERTTHRESH = 0.015 # margin threshold for alerts
 FLOW = 10000 #Amount Moved per arbitrage (in AUD)
 CURRENCYEXCHANGEFEE = .003 # Exchange rate losses

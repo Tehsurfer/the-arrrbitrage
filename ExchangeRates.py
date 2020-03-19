@@ -16,25 +16,25 @@ class ExchangeRates:
         payload = {'access_key': config.currencylayerkey,'source':'AUD','currencies':'USD,NZD,GBP,EUR','format':'1'}
         exchangeratesapiURL = 'https://api.exchangeratesapi.io/latest?base=AUD'
 
-        response1 = requests.get(exchangeratesapiURL)
+        response1 = requests.get(currencylayerURL, params=payload)
         print(response1)
         datarates1 = response1.json()
 
         rates = coinmarket.get_market()
         print('Rates are :')
-        print('AUD->USD: ' + str(datarates1['rates']['USD']))
-        print('AUD->NZD: ' + str(datarates1['rates']['NZD']))
-        print('AUD->GBP: ' + str(datarates1['rates']['GBP']))
-        print('AUD->EUR: ' + str(datarates1['rates']['EUR']))
+        print('AUD->USD: ' + str(datarates1['quotes']['AUDUSD']))
+        print('AUD->NZD: ' + str(datarates1['quotes']['AUDNZD']))
+        print('AUD->GBP: ' + str(datarates1['quotes']['AUDGBP']))
+        print('AUD->EUR: ' + str(datarates1['quotes']['AUDEUR']))
         print('BTC->AUD: ' + str(rates[0]))
         print('ETH->AUD: ' + str(rates[1]))
         print('LTC->AUD: ' + str(rates[3]))
         print('BCH->AUD: ' + str(rates[2]))
 
-        self.USD = datarates1['rates']['USD']
-        self.NZD = datarates1['rates']['NZD']
-        self.GBP = datarates1['rates']['GBP']
-        self.EUR = datarates1['rates']['EUR']
+        self.USD = datarates1['quotes']['AUDUSD'] 
+        self.NZD = datarates1['quotes']['AUDNZD']
+        self.GBP = datarates1['quotes']['AUDGBP']
+        self.EUR = datarates1['quotes']['AUDEUR']
         self.BTC = rates[0]
         self.ETH = rates[1]
         self.LTC = rates[3]
