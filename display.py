@@ -6,7 +6,7 @@ import settings
 class text_display:
 
     def __init__(self):
-        self.stringOutput = ''
+        self.stringOutput ='<head> <b> Validation page. We last pillaged the exchanges at:  ' + time.strftime('%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
         self.alertsOutput = ''
         self.htmlOutput = '{{ partial "head" . }} {{ partial "nav" . }} <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
