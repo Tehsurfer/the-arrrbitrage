@@ -1,0 +1,251 @@
+<head> <b> Validation page. We last pillaged the exchanges at:  12:02:52  03/09/20 New Zealand Standard Time <br /> </b> </head> BTC Native buy prices (for validation)
+Exchange 	|	 Buy Price 	|	 SellAsks 
+Coinspot	|	15860.0  	|	15870.0
+CSpot B/S	|	15641.7  	|	15758.3
+Coinjar 	|	15675.6  	|	15720.0
+ACX.io   	|	10100.0  	|	13200.0
+BTC Mrkts	|	15645.5  	|	15646.3
+IND RES  	|	15629.0  	|	15629.9
+Bitfinex	|	11380.0  	|	11381.0
+Coinfloor	|	8529.0  	|	8545.0
+Bittrex 	|	11364.7  	|	11370.6
+Bitstamp	|	11371.5  	|	11372.8
+--------------------------------------------------------------------
+BTC Market Prices
+Exchange 	|	 Buy Bids 	|	 Sell Asks 
+Coinspot	|	15860.0  	|	15870.0
+CSpot B/S	|	15641.712  	|	15758.327
+Coinjar 	|	15675.604  	|	15720.0
+ACX.io   	|	10100.0  	|	13200.0
+BTC Mrkts	|	15620.979  	|	15646.32
+IND RES  	|	15621.414  	|	15629.86
+Bitfinex	|	15540.384  	|	15541.749
+Coinfloor	|	15541.304  	|	15570.455
+Bittrex 	|	15520.093  	|	15534.273
+Bitstamp	|	15533.719  	|	15538.923
+--------------------------------------------------------------------
+
+
+BTC MARGIN COMBINATIONS (Trade fees and exchange rates included only)
+Direction		|	 Margin
+ACX.io    -> Coinspot 	|	 19.0%
+ACX.io    -> CSpot B/S 	|	 16.3%
+ACX.io    -> Coinjar  	|	 18.5%
+ACX.io    -> BTC Mrkts 	|	 17.5%
+ACX.io    -> IND RES   	|	 17.7%
+ACX.io    -> Bitfinex 	|	 17.3%
+ACX.io    -> Coinfloor 	|	 17.3%
+ACX.io    -> Bittrex  	|	 17.1%
+ACX.io    -> Bitstamp 	|	 17.2%
+Bitfinex -> Coinspot 	|	 0.8%
+Bittrex  -> Coinspot 	|	 0.8%
+Bitstamp -> Coinspot 	|	 0.8%
+--------------------------------------------------------------------
+
+
+BTC MARGIN COMBINATIONS for a 10k AUD move (All Fees included for a TWO way trip)
+Direction		|	 Profit
+ACX.io    -> Coinspot 	|	 1824.59
+ACX.io    -> CSpot B/S 	|	 1559.22
+ACX.io    -> Coinjar  	|	 1783.9
+ACX.io    -> BTC Mrkts 	|	 1683.51
+ACX.io    -> IND RES   	|	 1695.84
+ACX.io    -> Bitfinex 	|	 1662.46
+ACX.io    -> Coinfloor 	|	 1658.15
+ACX.io    -> Bittrex  	|	 1642.09
+ACX.io    -> Bitstamp 	|	 1652.41
+ETH Native buy prices (for validation)
+Exchange 	|	 Buy Price 	|	 SellAsks 
+Coinspot	|	620.0  	|	636.9
+CSpot B/S	|	600.5  	|	615.0
+Coinjar 	|	605.5  	|	613.3
+ACX.io   	|	200.0  	|	294.0
+BTC Mrkts	|	604.6  	|	607.0
+IND RES  	|	602.5  	|	606.3
+Bitfinex	|	438.6  	|	438.6
+Bittrex 	|	438.0  	|	438.6
+Bitstamp	|	438.6  	|	438.9
+--------------------------------------------------------------------
+ETH Market Prices
+Exchange 	|	 Buy Bids 	|	 Sell Asks 
+Coinspot	|	620.01  	|	636.879
+CSpot B/S	|	600.526  	|	615.03
+Coinjar 	|	605.457  	|	613.295
+ACX.io   	|	50.837  	|	427.052
+BTC Mrkts	|	604.799  	|	607.029
+IND RES  	|	602.882  	|	606.428
+Bitfinex	|	599.395  	|	599.539
+Bittrex 	|	598.463  	|	599.913
+Bitstamp	|	599.399  	|	600.027
+--------------------------------------------------------------------
+
+
+ETH MARGIN COMBINATIONS (Trade fees and exchange rates included only)
+Direction		|	 Margin
+ACX.io    -> Coinspot 	|	 44.0%
+ACX.io    -> CSpot B/S 	|	 38.4%
+ACX.io    -> Coinjar  	|	 41.6%
+ACX.io    -> BTC Mrkts 	|	 40.8%
+ACX.io    -> IND RES   	|	 40.5%
+ACX.io    -> Bitfinex 	|	 40.0%
+ACX.io    -> Bittrex  	|	 39.7%
+ACX.io    -> Bitstamp 	|	 39.9%
+IND RES   -> Coinspot 	|	 0.8%
+Bitfinex -> Coinspot 	|	 2.2%
+Bitfinex -> Coinjar  	|	 0.8%
+Bittrex  -> Coinspot 	|	 2.1%
+Bitstamp -> Coinspot 	|	 2.1%
+--------------------------------------------------------------------
+
+
+ETH MARGIN COMBINATIONS for a 10k AUD move (All Fees included for a TWO way trip)
+Direction		|	 Profit
+ACX.io    -> Coinspot 	|	 4327.81
+ACX.io    -> CSpot B/S 	|	 3771.58
+ACX.io    -> Coinjar  	|	 4086.04
+ACX.io    -> BTC Mrkts 	|	 4011.63
+ACX.io    -> IND RES   	|	 3978.74
+ACX.io    -> Bitfinex 	|	 3925.09
+ACX.io    -> Bittrex  	|	 3898.25
+ACX.io    -> Bitstamp 	|	 3920.18
+Bitfinex -> Coinspot 	|	 158.66
+Bittrex  -> Coinspot 	|	 139.44
+Bitstamp -> Coinspot 	|	 137.47
+LTC Native buy prices (for validation)
+Exchange 	|	 Buy Price 	|	 SellAsks 
+Coinspot	|	78.9  	|	83.0
+CSpot B/S	|	79.3  	|	81.3
+Coinjar 	|	79.8  	|	80.2
+ACX.io   	|	1.0  	|	139.0
+BTC Mrkts	|	80.0  	|	80.0
+IND RES  	|	79.4  	|	80.4
+Bitfinex	|	57.9  	|	57.9
+Bittrex 	|	57.8  	|	58.0
+Bitstamp	|	57.9  	|	57.9
+--------------------------------------------------------------------
+LTC Market Prices
+Exchange 	|	 Buy Bids 	|	 Sell Asks 
+Coinspot	|	78.942  	|	82.999
+CSpot B/S	|	79.26  	|	81.319
+Coinjar 	|	79.794  	|	80.22
+ACX.io   	|	1.641  	|	26.821
+BTC Mrkts	|	79.672  	|	81.156
+IND RES  	|	78.902  	|	82.48
+Bitfinex	|	79.058  	|	79.137
+Bittrex 	|	78.915  	|	79.244
+Bitstamp	|	79.048  	|	79.142
+--------------------------------------------------------------------
+
+
+LTC MARGIN COMBINATIONS (Trade fees and exchange rates included only)
+Direction		|	 Margin
+ACX.io    -> Coinspot 	|	 193.1%
+ACX.io    -> CSpot B/S 	|	 193.3%
+ACX.io    -> Coinjar  	|	 197.3%
+ACX.io    -> BTC Mrkts 	|	 196.3%
+ACX.io    -> IND RES   	|	 193.5%
+ACX.io    -> Bitfinex 	|	 194.4%
+ACX.io    -> Bittrex  	|	 193.8%
+ACX.io    -> Bitstamp 	|	 194.3%
+--------------------------------------------------------------------
+
+
+LTC MARGIN COMBINATIONS for a 10k AUD move (All Fees included for a TWO way trip)
+Direction		|	 Profit
+ACX.io    -> Coinspot 	|	 19242.1
+ACX.io    -> CSpot B/S 	|	 19260.68
+ACX.io    -> Coinjar  	|	 19658.95
+ACX.io    -> BTC Mrkts 	|	 19554.48
+ACX.io    -> IND RES   	|	 19279.38
+ACX.io    -> Bitfinex 	|	 19365.47
+ACX.io    -> Bittrex  	|	 19307.13
+ACX.io    -> Bitstamp 	|	 19356.68
+BCH Native buy prices (for validation)
+Exchange 	|	 Buy Price 	|	 SellAsks 
+CSpot B/S	|	359.2  	|	369.4
+ACX.io   	|	0.0  	|	400.0
+BTC Mrkts	|	361.0  	|	364.8
+IND RES  	|	359.0  	|	364.2
+Bitfinex	|	262.7  	|	262.9
+Bittrex 	|	262.2  	|	262.9
+Bitstamp	|	262.6  	|	262.9
+--------------------------------------------------------------------
+BCH Market Prices
+Exchange 	|	 Buy Bids 	|	 Sell Asks 
+CSpot B/S	|	359.24  	|	369.398
+ACX.io   	|	0.01  	|	2592.221
+BTC Mrkts	|	359.619  	|	364.813
+IND RES  	|	358.879  	|	371.518
+Bitfinex	|	358.687  	|	359.269
+Bittrex 	|	358.035  	|	359.688
+Bitstamp	|	358.71  	|	359.229
+--------------------------------------------------------------------
+
+
+BCH MARGIN COMBINATIONS (Trade fees and exchange rates included only)
+Direction		|	 Margin
+--------------------------------------------------------------------
+
+
+BCH MARGIN COMBINATIONS for a 10k AUD move (All Fees included for a TWO way trip)
+Direction		|	 Profit
+--- none :( ---
+
+OMG Native buy prices (for validation)
+Exchange 	|	 Buy Price 	|	 SellAsks 
+BTC Mrkts	|	6.0  	|	6.0
+IND RES  	|	5.8  	|	6.0
+Bitfinex	|	4.3  	|	4.3
+Bittrex 	|	4.3  	|	4.6
+--------------------------------------------------------------------
+OMG Market Prices
+Exchange 	|	 Buy Bids 	|	 Sell Asks 
+BTC Mrkts	|	5.903  	|	6.167
+IND RES  	|	5.802  	|	6.285
+Bitfinex	|	5.925  	|	5.943
+Bittrex 	|	5.873  	|	6.219
+--------------------------------------------------------------------
+
+
+OMG MARGIN COMBINATIONS (Trade fees and exchange rates included only)
+Direction		|	 Margin
+--------------------------------------------------------------------
+
+
+OMG MARGIN COMBINATIONS for a 10k AUD move (All Fees included for a TWO way trip)
+Direction		|	 Profit
+--- none :( ---
+
+TRX Native buy prices (for validation)
+Exchange 	|	 Buy Price 	|	 SellAsks 
+Coinspot	|	0.0  	|	0.1
+CSpot B/S	|	0.0  	|	0.0
+Bitfinex	|	0.0  	|	0.0
+Bittrex 	|	0.0  	|	0.0
+--------------------------------------------------------------------
+TRX Market Prices
+Exchange 	|	 Buy Bids 	|	 Sell Asks 
+Coinspot	|	0.044  	|	0.052
+CSpot B/S	|	0.047  	|	0.048
+Bitfinex	|	0.047  	|	0.047
+Bittrex 	|	0.047  	|	0.047
+--------------------------------------------------------------------
+
+
+TRX MARGIN COMBINATIONS (Trade fees and exchange rates included only)
+Direction		|	 Margin
+--------------------------------------------------------------------
+
+
+TRX MARGIN COMBINATIONS for a 10k AUD move (All Fees included for a TWO way trip)
+Direction		|	 Profit
+--- none :( ---
+
+
+
+Rates are :
+
+AUD->USD: 0.73235
+AUD->NZD: 1.083259
+AUD->GBP: 0.54886
+AUD->EUR: 0.618473

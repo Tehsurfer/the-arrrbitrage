@@ -2,6 +2,7 @@ import settings
 import ccxt
 import requests
 import coinspotscrape
+import config
 
 
 exchanges = {}  # a placeholder for instaces of the exchange
@@ -12,10 +13,9 @@ for id in ccxt.exchanges:
 
 # now exchanges dictionary contains all exchange instances...
 
+
 class Exchange(object):
     # A crypto currency base exchange class
-
-
 
     def __init__(self,name,nativeCurrency):
         self.name = name
@@ -29,8 +29,6 @@ class Exchange(object):
         self.buyBids = [0.001] * len(settings.Coins)
         self.successfullyLoaded = [0] * len(settings.Coins)
 
-
-
     def update(self):
         raise NotImplementedError
 
@@ -40,8 +38,8 @@ class Exchange(object):
         # coinspot requires API key for all requests
         if self.name == 'coinspot':
             coinspot = ccxt.coinspot()
-            coinspot.apiKey = '88cfb4705e658dea85ed0f580b40a4ce'
-            coinspot.secret = '*KTGVNEK33Q85FBKUQA02AVLEE7B0JHK5G25XNCZZ29F80H1T2M6ETAVCMMB8HT9YXL1ELCRNU2VG3PPVW'
+            coinspot.apiKey = config.coinspot_api_key
+            coinspot.secret = config.coinspot_secret
 
 
         orde = exchanges[self.name].fetch_order_book(coin+ '/' + self.nativeCurrency, limit=1000)
@@ -72,8 +70,8 @@ class Exchange(object):
         # coinspot requires API key for all requests
         if self.name == 'coinspot':
             coinspot = ccxt.coinspot()
-            coinspot.apiKey = '88cfb4705e658dea85ed0f580b40a4ce'
-            coinspot.secret = 'KTGVNEK33Q85FBKUQA02AVLEE7B0JHK5G25XNCZZ29F80H1T2M6ETAVCMMB8HT9YXL1ELCRNU2VG3PPVW'
+            coinspot.apiKey = config.coinspot_api_key
+            coinspot.secret = config.coinspot_secret
 
         orde = exchanges[self.name].fetch_order_book(coin + '/' + self.nativeCurrency, limit=1000)
         print(orde['bids'])
@@ -97,6 +95,7 @@ class Exchange(object):
         print(totalpaid)
         return (totalpaid / fillamount)
 
+# Subclass of exchange for ones inlcuded on ccxt
 class ccxtApproved(Exchange):
 
     def update(self):
@@ -111,8 +110,8 @@ class ccxtApproved(Exchange):
                 self.sellAsks[i] = 1000000
                 self.buyBids[i] = .001
 
+# Subclass of exchange for exhchanges that require special treatment
 class scraped(Exchange):
-
 
     def update(self):
 

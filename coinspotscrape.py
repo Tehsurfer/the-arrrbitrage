@@ -1,6 +1,8 @@
+# coinspotscrape.py | A web scraper to get prices from coinspot
+
 from bs4 import BeautifulSoup
 import cfscrape
-import re
+
 
 
 class coinspotscrape:

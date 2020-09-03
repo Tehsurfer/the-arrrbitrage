@@ -1,4 +1,5 @@
-#database.py
+#database.py | Saves the found arbitrage margins to files.
+# This should ideally be done in a SQL style database but I never got around to implementing it
 import time
 import re
 import numpy as np

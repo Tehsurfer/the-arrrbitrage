@@ -7,8 +7,8 @@ from ExchangeRates import ExchangeRates
 from PlaceChecker import PlaceChecker
 from xrpscrape import xrpscrape
 import numpy as np
-from arbFunctions import sendemails, updateDropbox, to_AUD
-from git_hub import git_hub
+from arbFunctions import to_AUD
+from save_files import save_files
 # from git_hub2 import git_hub2
 from Exchange import Exchange, ccxtApproved, scraped
 
@@ -78,7 +78,7 @@ def main():
 
             for exchange in exchanges:
                 if exchange.successfullyLoaded[i_coin]:
-                    if exchange.sellAsks[i_coin] is not None:
+                    if exchange.sellAsks[i_coin] is not None and exchange.sellAsks[i_coin] != 0:
                         ValidNames.append(exchange.displayName)
                         SellAsks.append(exchange.sellAsks[i_coin])
                         BuyBids.append(exchange.buyBids[i_coin])
@@ -156,35 +156,13 @@ def main():
             maxArb[i_coin] = margins.max()
             print(display.stringOutput)
 
-        #data_base.save_arb(max(maxArb))
-
-        # Check XRP for arbitrage opportunities
-        # xrp = xrpscrape()
-        # display.stringOutput += xrp.totext()
-        # if xrp.arbAvailable():
-        #     display.alertsOutput += xrp.totext()
-        #     display.stringOutput += xrp.totext()
-        #     display.htmlOutput += xrp.totext()
-
         # Add exchange rates for visualising
         display.stringOutput += rts.totext()
 
-        #send email alerts if valuable arbs pop up
-        # sendemails(display.stringOutput, display.alertsOutput, runNumber, xrp, max(maxArb))
-
-        #update the dropbox display and
-        updateDropbox(display.stringOutput, display.htmlOutput, display.htmlOutput2)
-        time.sleep(2)
-
-        # update javascript display every 3 minutes.
-        # if runNumber % 3 == 0:
-        #     data_base.javascript_arb_array()
-        #     g2 = git_hub2()
-        #     g2.update()
-
-        # update github
-        g = git_hub()
-        g.update()
+        # update database and server
+        g = save_files()
+        g.update_data(display.stringOutput, display.htmlOutput, display.htmlOutput2)
+        g.update_templates()
 
         # place an alert to confirm program has run with no errors
         PlaceChecker()

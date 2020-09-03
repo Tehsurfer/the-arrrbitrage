@@ -33,68 +33,6 @@ def sendemails(fileStr, fileStrAlert, kt, xrp, maxArb):
         server.quit()
 
 
-#updates the dropbox files for web display
-def updateDropbox(fileStr, html='',html2=''):
-
-
-    # Change path to reflect file location
-    f = open('ArbitrageResults.txt', 'w')
-
-    f.write(fileStr)
-    f.close()
-    # Update files
-
-    contents = open('ArbitrageResults.txt', "r")
-    g = open(Path / "index.html", "w")
-    html_text = '{{ partial "head" . }} {{ partial "nav" . }} <pre>' + fileStr + '</pre>'
-
-    g.write(html_text)
-
-    contents = open('ArbitrageResults.txt', "r")
-    with open(Path / "index.txt", "w") as yo:
-        for lines in contents.readlines():
-            yo.write(lines)
-
-    f = open(Path / 'margin_table_with_depth.html', 'w')
-    f.write(html)
-    f.close()
-
-    h = open(Path / 'margin_table.html', 'w')
-    h.write(html2)
-    h.close()
-
-
-def save_prices_to_database(marketNames, buyPrices, sellPrices, coin):
-    f = open(Path / 'database\prices' / coin, 'a+')
-    databasetext = time.strftime('%X %x %Z') + '\t'
-    for i, market in enumerate(marketNames):
-        databasetext += str(buyPrices[i]) + '\t' + str(sellPrices[i]) + '\t'
-
-    f.write(databasetext + '\n')
-    f.close()
-
-
-def save_arb_to_database(margin):
-    f = open(Path / 'database\\arbdata', 'a+')
-    text = str(time.time()) + '\t' + str(margin)
-    f.write(text + '\n')
-    f.close()
-
-# collects the moving average from the database
-def get_moving_average(timePeriod):
-    f = open(Path / 'database\\arbdata', 'r')
-    for line in f.readlines():
-        g = 2
-
-
-def create_database(marketNames, coin):
-    f = open(Path + '\database\prices' + coin, 'w+')
-    text = time.strftime('%X %x %Z') + '\t'
-    for i, market in enumerate(marketNames):
-        text += marketNames[i] + '\t' + marketNames[i] + '\t'
-    f.write(text + '\n')
-    f.close()
-
 # The next five functions are used to organise a table of data into a format for display in html
 def row_major(alist, sublen):
     return [alist[i:i + sublen] for i in range(0, len(alist), sublen)]

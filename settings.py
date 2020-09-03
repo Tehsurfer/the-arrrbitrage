@@ -2,8 +2,9 @@
 
 from pathlib import Path
 global PATH, Coins
+import os
 
-PATH = Path("/home/jessekhorasanee/workspace/the-arrrbitrage/data/")
+PATH = Path(os.path.join(os.getcwd(), 'data'))
 
 
 RUNTIME = 60 # Amount of time software runs ins

@@ -1,11 +1,8 @@
-import ccxt
-import time
-import json
 import requests
 import config
 import coinmarket
 
-#Fetching rates from apifixer.io (free service)
+#Fetching rates from apilayer (free service)
 
 class ExchangeRates:
     def __init__(self):
@@ -14,7 +11,6 @@ class ExchangeRates:
     def update(self):
         currencylayerURL = 'https://www.apilayer.net/api/live'
         payload = {'access_key': config.currencylayerkey,'source':'AUD','currencies':'USD,NZD,GBP,EUR','format':'1'}
-        exchangeratesapiURL = 'https://api.exchangeratesapi.io/latest?base=AUD'
 
         response1 = requests.get(currencylayerURL, params=payload)
         print(response1)

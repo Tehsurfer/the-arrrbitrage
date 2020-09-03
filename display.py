@@ -1,4 +1,5 @@
 #display.py used for changing all information into a human readable format
+# all functions take arrays as input and output html ready for display
 import time
 import arbFunctions
 import settings
@@ -7,12 +8,14 @@ class text_display:
 
     def __init__(self):
         self.stringOutput ='<head> <b> Validation page. We last pillaged the exchanges at:  ' + time.strftime('%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
+        self.stringOutput += '<p><a href="./margins">Margin Tables</a></p>'
+        self.stringOutput += '<p><a href="./margins-depth">Margin Tables With Depth</a></p>'
         self.alertsOutput = ''
-        self.htmlOutput = '{{ partial "head" . }} {{ partial "nav" . }} <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+        self.htmlOutput = '<html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
-        self.htmlOutput2 = '{{ partial "head" . }} {{ partial "nav" . }} <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+        self.htmlOutput2 = ' <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
-        self.header = '{{ partial "head" . }} {{ partial "nav" . }} <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+        self.header = '<html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
 
     def __add__(self, other):
