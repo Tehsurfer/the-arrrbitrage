@@ -1,6 +1,5 @@
 #arbFunctions.py is various input functions that did not fit in the main thread but did not seem worthy of their own class
 import smtplib
-import time
 from database import database
 import settings
 

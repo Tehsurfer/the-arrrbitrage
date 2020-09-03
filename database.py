@@ -2,9 +2,7 @@
 # This should ideally be done in a SQL style database but I never got around to implementing it
 import time
 import re
-import numpy as np
 import statistics
-# import scipy.stats
 import settings
 import json
 

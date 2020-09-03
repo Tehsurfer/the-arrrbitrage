@@ -5,11 +5,9 @@ import database
 from display import text_display
 from ExchangeRates import ExchangeRates
 from PlaceChecker import PlaceChecker
-from xrpscrape import xrpscrape
 import numpy as np
 from arbFunctions import to_AUD
 from save_files import save_files
-# from git_hub2 import git_hub2
 from Exchange import Exchange, ccxtApproved, scraped
 
 
