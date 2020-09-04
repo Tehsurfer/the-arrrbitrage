@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import threading
 import time
+import sys
 import RunArbIfDown
 app = Flask(__name__, static_url_path='')
 
@@ -20,9 +21,13 @@ def margins_depth():
 def thread_test():
     time.sleep(10)
     print('Thread is printing to console')
+    sys.stdout.flush()
+    return
 
 
 if __name__ == "__main__":
+    print('Logging is working')
+    sys.stdout.flush()
     threading.Thread(target=thread_test).start()
     threading.Thread(target=app.run).start()
     threading.Thread(target=RunArbIfDown.start).start()
