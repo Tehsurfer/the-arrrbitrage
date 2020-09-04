@@ -1,5 +1,6 @@
 # AritrageMain.py is the main thread path to execute all necessary features of the arbitrage
 import settings
+import sys
 import time
 import database
 from display import text_display
@@ -169,6 +170,7 @@ def main():
         run_time = round(program_finish - program_start)
         print('program ran succesfuly at' + time.strftime('%X %x %Z'))
         print('progran took a total of: ' + str(run_time) + 's to run')
+        sys.stdout.flush()
         time.sleep(1)
 
         if run_time < WAITTIME:
