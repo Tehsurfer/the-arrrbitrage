@@ -4,7 +4,7 @@ import time
 import sys
 import RunArbIfDown
 app = Flask(__name__, static_url_path='')
-
+test_result = 'failed'
 
 @app.route('/')
 def index():
@@ -18,11 +18,20 @@ def margins():
 def margins_depth():
     return render_template('margin_table_with_depth.html')
 
+@app.route('/thread-test')
+def return_thread_test():
+    global test_result
+    return test_result
+
 def thread_test():
     time.sleep(10)
     print('Thread is printing to console')
     sys.stdout.flush()
+    global test_result
+    test_result = 'passed'
     return
+
+
 
 
 if __name__ == "__main__":
