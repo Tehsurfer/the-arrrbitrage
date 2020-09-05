@@ -39,5 +39,3 @@ if __name__ == "__main__":
     sys.stdout.flush()
 
     threading.Thread(target=app.run).start()
-    threading.Thread(target=thread_testy).start()
-    threading.Thread(target=RunArbIfDown.start).start()
