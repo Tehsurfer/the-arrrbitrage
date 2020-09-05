@@ -9,6 +9,7 @@ test_result = 'failed'
 @app.before_first_request
 def execute_this():
     threading.Thread(target=thread_testy).start()
+    threading.Thread(target=RunArbIfDown.start).start()
 
 @app.route('/')
 def index():
