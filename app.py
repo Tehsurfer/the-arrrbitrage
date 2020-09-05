@@ -31,13 +31,9 @@ def thread_testy():
     test_result = 'passed'
     return
 
-
-
-
-if __name__ == "__main__":
-    print('Logging is working')
-    sys.stdout.flush()
-
+def start_app():
     threading.Thread(target=app.run).start()
     threading.Thread(target=thread_testy).start()
-    
+
+
+start_app()
