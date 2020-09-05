@@ -19,11 +19,11 @@ def margins_depth():
     return render_template('margin_table_with_depth.html')
 
 @app.route('/thread-test')
-def return_thread_test():
+def thread_test():
     global test_result
     return test_result
 
-def thread_test():
+def thread_testy():
     time.sleep(10)
     print('Thread is printing to console')
     sys.stdout.flush()
@@ -39,5 +39,5 @@ if __name__ == "__main__":
     sys.stdout.flush()
 
     threading.Thread(target=app.run).start()
-    threading.Thread(target=thread_test).start()
+    threading.Thread(target=thread_testy).start()
     threading.Thread(target=RunArbIfDown.start).start()
