@@ -37,6 +37,7 @@ def thread_test():
 if __name__ == "__main__":
     print('Logging is working')
     sys.stdout.flush()
-    threading.Thread(target=thread_test).start()
+
     threading.Thread(target=app.run).start()
+    threading.Thread(target=thread_test).start()
     threading.Thread(target=RunArbIfDown.start).start()
