@@ -6,6 +6,10 @@ import RunArbIfDown
 app = Flask(__name__, static_url_path='')
 test_result = 'failed'
 
+@app.before_first_request
+def execute_this():
+    threading.Thread(target=thread_testy).start()
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -33,7 +37,8 @@ def thread_testy():
 
 def start_app():
     threading.Thread(target=app.run).start()
-    threading.Thread(target=thread_testy).start()
+
+if __name__ == "__main__":
+    start_app()
 
 
-start_app()
