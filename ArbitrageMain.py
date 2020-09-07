@@ -111,13 +111,11 @@ class ArbMain:
                         depthpricesell = exchange.order_book_sell(coin, coinsBought)
                         depthpricesells.append(depthpricesell)
                         depthpricebuys.append(depthpricebuy)
-                        # fileStr += ValidNames[i] + '  \t|\t' + str(round(depthpricebuy, 0)) + '  \t|\t' + str(
-                        #     round(depthpricesell, 0)) + '\n'
                     else:
                         depthpricebuys.append(exchange.buyBids[i_coin])
                         depthpricesells.append(exchange.sellAsks[i_coin])
-                    # Convert Prices to a single currency (AUD)
 
+                    # Convert Prices to a single currency (AUD)
                     BuyBids.append(to_AUD(exchange.nativeCurrency,depthpricebuys[-1], rts))
                     SellAsks.append(to_AUD(exchange.nativeCurrency,depthpricesells[-1], rts))
                     SellAsksNoDepth.append(to_AUD(exchange.nativeCurrency,exchange.sellAsks[i_coin], rts))
@@ -131,6 +129,7 @@ class ArbMain:
                 margins = np.zeros(shape=(len(ValidNames), len(ValidNames)))
 
                 profits = np.zeros(shape=(len(ValidNames), len(ValidNames)))
+                profits_no_depth = np.zeros(shape=(len(ValidNames), len(ValidNames)))
                 for i in range(0, len(ValidNames)):
                     for j in range(0, len(ValidNames)):
                         # Calculating change
@@ -143,13 +142,18 @@ class ArbMain:
                             j] - CURRENCYEXCHANGEFEE * FLOW - CURRENCYEXCHANGEFLATFEE
                         profits[i, j] = profit
 
-                        marginsNoDepth.append((BuyBidsNoDepth[j] - SellAsksNoDepth[i]) / SellAsksNoDepth[i])
+                        # Calculate again without depth
+                        margin_no_depth = (BuyBidsNoDepth[j] - SellAsksNoDepth[i]) / SellAsksNoDepth[i]
+                        profit_no_depth = FLOW * margin_no_depth - CryptoWithdrawalFees[i] - WFIATFees[
+                            j] - CURRENCYEXCHANGEFEE * FLOW - CURRENCYEXCHANGEFLATFEE
+                        margin_no_depth_with_fees = profit_no_depth / FLOW
+                        profits_no_depth[i, j] = margin_no_depth_with_fees
 
                 # Write profits and margins into a displayable format
                 display.margin_list(ValidNames, BuyBids, SellAsks, margins, coin)
                 display.profit_list(ValidNames, BuyBids, SellAsks, profits, coin)
                 display.profit_table(profits.flatten(),ValidNames,len(ValidNames),coin)
-                display.margin_table(marginsNoDepth,ValidNames,len(ValidNames),coin)
+                display.margin_table(profits_no_depth.flatten(),ValidNames,len(ValidNames),coin)
 
                 # Check for margins worthy of an email alert
                 display.alerts(ValidNames, BuyBids, SellAsks, margins, coin, ALERTTHRESH)
@@ -166,12 +170,12 @@ class ArbMain:
 
             # update database and server
             g = save_files()
-            g.update_data(display.stringOutput, display.htmlOutput, display.htmlOutput2)
+            g.update_data(display.stringOutput, display.marginNoDepth, display.marginWithDepth)
             g.update_templates()
 
             self.html = f'<pre>{display.stringOutput}</pre>'
-            self.margin_table = display.htmlOutput
-            self.margin_table_depth = display.htmlOutput2
+            self.margin_table = display.marginNoDepth
+            self.margin_table_depth = display.marginWithDepth
 
             # place an alert to confirm program has run with no errors
             PlaceChecker()

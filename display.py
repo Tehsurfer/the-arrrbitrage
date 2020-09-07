@@ -11,9 +11,9 @@ class text_display:
         self.stringOutput += '<p><a href="./margins">Margin Tables</a></p>'
         self.stringOutput += '<p><a href="./margins-depth">Margin Tables With Depth</a></p>'
         self.alertsOutput = ''
-        self.htmlOutput = '<html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+        self.marginWithDepth = '<html><head> <b> Table of margins with dpeth and fees for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
-        self.htmlOutput2 = ' <html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+        self.marginNoDepth = ' <html><head> <b> Table of margins with fees no depth for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
         self.header = '<html><head> <b> Table of margins for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
@@ -82,13 +82,13 @@ class text_display:
         profitlist2 = [0]*len(profitlist)
         for i, profit in enumerate(profitlist):
             profitlist2[i] = round(profit/settings.FLOW*100,2)
-        self.htmlOutput += '<body> <b> ' + str(coin) + ' </b> </body> '
-        self.htmlOutput += arbFunctions.list_to_html_table(profitlist2,Validnames,sublength,color=True)
+        self.marginWithDepth += '<body> <b> ' + str(coin) + ' </b> </body> '
+        self.marginWithDepth += arbFunctions.list_to_html_table(profitlist2,Validnames,sublength,color=True)
 
     def margin_table(self, marginlist, Validnames, sublength, coin):
         marginlist2 = [0] * len(marginlist)
         for i, margin in enumerate(marginlist):
-            marginlist2[i] = round(margin*100, 1)
-        self.htmlOutput2 += '<body> <b> ' + str(coin) + ' </b> </body> '
-        self.htmlOutput2 += arbFunctions.list_to_html_table(marginlist2, Validnames, sublength, color=True)
+            marginlist2[i] = round(margin*100, 2)
+        self.marginNoDepth += '<body> <b> ' + str(coin) + ' </b> </body> '
+        self.marginNoDepth += arbFunctions.list_to_html_table(marginlist2, Validnames, sublength, color=True)
 
