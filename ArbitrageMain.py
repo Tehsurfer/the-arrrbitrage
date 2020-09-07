@@ -143,7 +143,7 @@ class ArbMain:
                             j] - CURRENCYEXCHANGEFEE * FLOW - CURRENCYEXCHANGEFLATFEE
                         profits[i, j] = profit
 
-                        marginsNoDepth.append((BuyBids[j] - SellAsks[i]) / SellAsks[i])
+                        marginsNoDepth.append((BuyBidsNoDepth[j] - SellAsksNoDepth[i]) / SellAsksNoDepth[i])
 
                 # Write profits and margins into a displayable format
                 display.margin_list(ValidNames, BuyBids, SellAsks, margins, coin)
