@@ -107,8 +107,8 @@ class ArbMain:
                     if exchange.displayName not in ValidNames:
                         continue
                     if settings.OrderBookNeeded[i] == 1:
-                        depthpricebuy = exchange.order_book_sell(coin, coinsBought)
-                        depthpricesell = exchange.order_book_buy(coin, coinsBought)
+                        depthpricebuy = exchange.order_book_buy(coin, coinsBought)
+                        depthpricesell = exchange.order_book_sell(coin, coinsBought)
                         depthpricesells.append(depthpricesell)
                         depthpricebuys.append(depthpricebuy)
                         # fileStr += ValidNames[i] + '  \t|\t' + str(round(depthpricebuy, 0)) + '  \t|\t' + str(

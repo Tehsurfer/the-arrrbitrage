@@ -42,17 +42,15 @@ class Exchange(object):
             coinspot.secret = config.coinspot_secret
 
 
-        orde = exchanges[self.name].fetch_order_book(coin+ '/' + self.nativeCurrency, limit=1000)
+        order_book = exchanges[self.name].fetch_order_book(coin+ '/' + self.nativeCurrency, limit=1000)
         totalfilled = 0
         totalpaid = 0
         i = 0
         print('exchange is' + self.name)
-        if self.name == 'acx':
-            tt = 0
         while totalfilled <= fillamount:
-            if i < len(orde['asks']):
-                price = orde['asks'][i][0]
-                amount = orde['asks'][i][1]
+            if i < len(order_book['asks']):
+                price = order_book['asks'][i][0]
+                amount = order_book['asks'][i][1]
                 totalfilled += amount
                 totalpaid += price * amount
                 i += 1
@@ -60,7 +58,7 @@ class Exchange(object):
                 totalpaid = totalpaid*2
                 break
         if totalfilled > fillamount:
-            totalpaid -= orde['asks'][i - 1][0] * (totalfilled - fillamount)
+            totalpaid -= order_book['asks'][i - 1][0] * (totalfilled - fillamount)
         print(totalpaid)
         return (totalpaid / fillamount)
 
@@ -73,17 +71,17 @@ class Exchange(object):
             coinspot.apiKey = config.coinspot_api_key
             coinspot.secret = config.coinspot_secret
 
-        orde = exchanges[self.name].fetch_order_book(coin + '/' + self.nativeCurrency, limit=1000)
-        print(orde['bids'])
+        order_book = exchanges[self.name].fetch_order_book(coin + '/' + self.nativeCurrency, limit=1000)
+        print(order_book['bids'])
 
         totalfilled = 0
         totalpaid = 0
         i = 0
 
         while totalfilled <= fillamount:
-            if i < len(orde['bids']):
-                price = orde['bids'][i][0]
-                amount = orde['bids'][i][1]
+            if i < len(order_book['bids']):
+                price = order_book['bids'][i][0]
+                amount = order_book['bids'][i][1]
                 totalfilled += amount
                 totalpaid += price * amount
                 i += 1
@@ -91,7 +89,7 @@ class Exchange(object):
                 totalpaid = totalpaid * 2
                 break
         if totalfilled > fillamount:
-            totalpaid -= orde['bids'][i - 1][0] * (totalfilled - fillamount)
+            totalpaid -= order_book['bids'][i - 1][0] * (totalfilled - fillamount)
         print(totalpaid)
         return (totalpaid / fillamount)
 
