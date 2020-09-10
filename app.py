@@ -29,7 +29,13 @@ def thread_test():
 
 @app.route('/api/margins-with-depth')
 def api_with_depth():
-    r = make_response(arb_main.json_export)
+    r = make_response(arb_main.json_export_with_depth)
+    r.mimetype = 'application/json'
+    return r
+
+@app.route('/api/margins-no-depth')
+def api_no_depth():
+    r = make_response(arb_main.json_export_no_depth)
     r.mimetype = 'application/json'
     return r
 

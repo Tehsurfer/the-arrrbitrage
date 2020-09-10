@@ -85,7 +85,7 @@ class Exchange(object):
                 totalpaid += price * amount
                 i += 1
             else:
-                totalpaid = 0
+                totalpaid = 0.000000001
                 break
         if totalfilled > fillamount:
             totalpaid -= order_book['bids'][i - 1][0] * (totalfilled - fillamount)

@@ -20,7 +20,11 @@ class ArbMain:
         self.html = 'First run in progress. Check back in one minute'
         self.margin_table = 'First run in progress. Check back in one minute'
         self.margin_table_depth = 'First run in progress. Check back in one minute'
-        self.json_export = json.dumps({
+        self.json_export_no_depth = json.dumps({
+            'last_run': 0,
+            'results': {}
+        })
+        self.json_export_with_depth = json.dumps({
             'last_run': 0,
             'results': {}
         })
@@ -66,7 +70,8 @@ class ArbMain:
             display = text_display()
 
             # intialise json export:
-            json_export = ExportAPI()
+            json_export_no_depth = ExportAPI()
+            json_export_with_depth = ExportAPI()
 
             print('Loading Exchange rates...')
             if runNumber % 60 == 0:
@@ -165,7 +170,8 @@ class ArbMain:
                 display.no_depth_table(margins_no_depth.flatten(),ValidNames,len(ValidNames),coin)
 
                 # Update api json outputs:
-                json_export.update_results(coin, margins, ValidNames)
+                json_export_no_depth.update_results(coin, margins_no_depth, ValidNames)
+                json_export_with_depth.update_results(coin, margins, ValidNames)
 
                 # Check for margins worthy of an email alert
                 display.alerts(ValidNames, BuyBids, SellAsks, margins, coin, ALERTTHRESH)
@@ -188,7 +194,8 @@ class ArbMain:
             self.html = f'<pre>{display.stringOutput}</pre>'
             self.margin_table = display.marginNoDepth
             self.margin_table_depth = display.marginWithDepth
-            self.json_export = json_export.export()
+            self.json_export_no_depth = json_export_no_depth.export()
+            self.json_export_with_depth = json_export_with_depth.export()
 
             # place an alert to confirm program has run with no errors
             PlaceChecker()
