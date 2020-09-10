@@ -10,7 +10,8 @@ import numpy as np
 from arbFunctions import to_AUD
 from save_files import save_files
 from Exchange import Exchange, ccxtApproved, scraped
-
+from json_export import ExportAPI
+import json
 
 
 
@@ -19,6 +20,10 @@ class ArbMain:
         self.html = 'First run in progress. Check back in one minute'
         self.margin_table = 'First run in progress. Check back in one minute'
         self.margin_table_depth = 'First run in progress. Check back in one minute'
+        self.json_export = json.dumps({
+            'last_run': 0,
+            'results': {}
+        })
 
     def start(self):
         # create local versions of global variables (all accessible in settings.py)
@@ -59,6 +64,9 @@ class ArbMain:
 
             # initialise display strings
             display = text_display()
+
+            # intialise json export:
+            json_export = ExportAPI()
 
             print('Loading Exchange rates...')
             if runNumber % 60 == 0:
@@ -127,7 +135,7 @@ class ArbMain:
                 # Search all the Exchanges for margins
                 marginsNoDepth = []
                 margins = np.zeros(shape=(len(ValidNames), len(ValidNames)))
-
+                margins_no_depth = np.zeros(shape=(len(ValidNames), len(ValidNames)))
                 profits = np.zeros(shape=(len(ValidNames), len(ValidNames)))
                 profits_no_depth = np.zeros(shape=(len(ValidNames), len(ValidNames)))
                 for i in range(0, len(ValidNames)):
@@ -136,24 +144,28 @@ class ArbMain:
                         margin = (BuyBids[j] - SellAsks[i]) / SellAsks[i]
                         # Calculating price
                         margin = margin - TradeFees[i] - TradeFees[j]
-                        margins[i, j] = margin
                         # Calculate price with all relevant fees
                         profit = FLOW * margin - CryptoWithdrawalFees[i] - WFIATFees[
                             j] - CURRENCYEXCHANGEFEE * FLOW - CURRENCYEXCHANGEFLATFEE
                         profits[i, j] = profit
+                        margins[i, j] = profit / FLOW
 
                         # Calculate again without depth
                         margin_no_depth = (BuyBidsNoDepth[j] - SellAsksNoDepth[i]) / SellAsksNoDepth[i]
-                        profit_no_depth = FLOW * margin_no_depth - CryptoWithdrawalFees[i] - WFIATFees[
+                        profit_no_depth_with_fees = FLOW * margin_no_depth - CryptoWithdrawalFees[i] - WFIATFees[
                             j] - CURRENCYEXCHANGEFEE * FLOW - CURRENCYEXCHANGEFLATFEE
-                        margin_no_depth_with_fees = profit_no_depth / FLOW
-                        profits_no_depth[i, j] = margin_no_depth_with_fees
+                        margin_no_depth_with_fees = profit_no_depth_with_fees / FLOW
+                        profits_no_depth[i, j] = profit_no_depth_with_fees
+                        margins_no_depth[i, j] = margin_no_depth_with_fees
 
                 # Write profits and margins into a displayable format
                 display.margin_list(ValidNames, BuyBids, SellAsks, margins, coin)
                 display.profit_list(ValidNames, BuyBids, SellAsks, profits, coin)
-                display.profit_table(profits.flatten(),ValidNames,len(ValidNames),coin)
-                display.margin_table(profits_no_depth.flatten(),ValidNames,len(ValidNames),coin)
+                display.depth_table(margins.flatten(),ValidNames,len(ValidNames),coin)
+                display.no_depth_table(margins_no_depth.flatten(),ValidNames,len(ValidNames),coin)
+
+                # Update api json outputs:
+                json_export.update_results(coin, margins, ValidNames)
 
                 # Check for margins worthy of an email alert
                 display.alerts(ValidNames, BuyBids, SellAsks, margins, coin, ALERTTHRESH)
@@ -176,6 +188,7 @@ class ArbMain:
             self.html = f'<pre>{display.stringOutput}</pre>'
             self.margin_table = display.marginNoDepth
             self.margin_table_depth = display.marginWithDepth
+            self.json_export = json_export.export()
 
             # place an alert to confirm program has run with no errors
             PlaceChecker()

@@ -78,14 +78,14 @@ class text_display:
 
         self.alertsOutput += '--------------------------------------------------------------------\n'
 
-    def profit_table(self,profitlist, Validnames, sublength, coin):
-        profitlist2 = [0]*len(profitlist)
-        for i, profit in enumerate(profitlist):
-            profitlist2[i] = round(profit/settings.FLOW*100,2)
+    def no_depth_table(self,marginlist, Validnames, sublength, coin):
+        marginlist2 = [0]*len(marginlist)
+        for i, margin in enumerate(marginlist):
+            marginlist2[i] = round(margin*100,2)
         self.marginWithDepth += '<body> <b> ' + str(coin) + ' </b> </body> '
-        self.marginWithDepth += arbFunctions.list_to_html_table(profitlist2,Validnames,sublength,color=True)
+        self.marginWithDepth += arbFunctions.list_to_html_table(marginlist2,Validnames,sublength,color=True)
 
-    def margin_table(self, marginlist, Validnames, sublength, coin):
+    def depth_table(self, marginlist, Validnames, sublength, coin):
         marginlist2 = [0] * len(marginlist)
         for i, margin in enumerate(marginlist):
             marginlist2[i] = round(margin*100, 2)

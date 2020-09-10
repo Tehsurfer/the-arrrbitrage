@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 import threading
 import time
 import sys
@@ -26,6 +26,12 @@ def margins_depth():
 def thread_test():
     global test_result
     return test_result
+
+@app.route('/api/margins-with-depth')
+def api_with_depth():
+    r = make_response(arb_main.json_export)
+    r.mimetype = 'application/json'
+    return r
 
 def thread_testy():
     time.sleep(10)
