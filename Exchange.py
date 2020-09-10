@@ -55,7 +55,7 @@ class Exchange(object):
                 totalpaid += price * amount
                 i += 1
             else:
-                totalpaid = totalpaid*2
+                totalpaid = 9999999999
                 break
         if totalfilled > fillamount:
             totalpaid -= order_book['asks'][i - 1][0] * (totalfilled - fillamount)
@@ -72,7 +72,6 @@ class Exchange(object):
             coinspot.secret = config.coinspot_secret
 
         order_book = exchanges[self.name].fetch_order_book(coin + '/' + self.nativeCurrency, limit=1000)
-        print(order_book['bids'])
 
         totalfilled = 0
         totalpaid = 0
@@ -86,7 +85,7 @@ class Exchange(object):
                 totalpaid += price * amount
                 i += 1
             else:
-                totalpaid = totalpaid * 2
+                totalpaid = 0
                 break
         if totalfilled > fillamount:
             totalpaid -= order_book['bids'][i - 1][0] * (totalfilled - fillamount)
