@@ -11,7 +11,7 @@ class text_display:
         self.stringOutput += '<p><a href="./margins">Margin Tables</a></p>'
         self.stringOutput += '<p><a href="./margins-depth">Margin Tables With Depth</a></p>'
         self.alertsOutput = ''
-        self.marginWithDepth = '<html><head> <b> Table of margins with dpeth and fees for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
+        self.marginWithDepth = '<html><head> <b> Table of margins with depth and fees for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
         self.marginNoDepth = ' <html><head> <b> Table of margins with fees no depth for a 10k AUD two way trip. We last pillaged the exchanges at:  ' + time.strftime(
             '%X  %d/%m/%y %Z') + ' <br /> </b> </head> '
@@ -82,13 +82,13 @@ class text_display:
         marginlist2 = [0]*len(marginlist)
         for i, margin in enumerate(marginlist):
             marginlist2[i] = round(margin*100,2)
-        self.marginWithDepth += '<body> <b> ' + str(coin) + ' </b> </body> '
-        self.marginWithDepth += arbFunctions.list_to_html_table(marginlist2,Validnames,sublength,color=True)
+        self.marginNoDepth += '<body> <b> ' + str(coin) + ' </b> </body> '
+        self.marginNoDepth += arbFunctions.list_to_html_table(marginlist2,Validnames,sublength,color=True)
 
     def depth_table(self, marginlist, Validnames, sublength, coin):
         marginlist2 = [0] * len(marginlist)
         for i, margin in enumerate(marginlist):
             marginlist2[i] = round(margin*100, 2)
-        self.marginNoDepth += '<body> <b> ' + str(coin) + ' </b> </body> '
-        self.marginNoDepth += arbFunctions.list_to_html_table(marginlist2, Validnames, sublength, color=True)
+        self.marginWithDepth += '<body> <b> ' + str(coin) + ' </b> </body> '
+        self.marginWithDepth += arbFunctions.list_to_html_table(marginlist2, Validnames, sublength, color=True)
 
